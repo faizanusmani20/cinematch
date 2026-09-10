@@ -181,7 +181,7 @@
   .stack-badges span{ font-size:12px; font-weight:700; padding:8px 14px; border-radius:100px; background:var(--panel); border:1px solid var(--line); color:var(--muted); display:inline-flex; align-items:center; gap:6px; }
   .foot-bottom{ color:var(--muted); font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
 
-  /* Setup overlay */
+
   .setup-overlay{ position:fixed; inset:0; background:var(--bg); z-index:500; display:flex; align-items:center; justify-content:center; padding:24px; }
   .setup-card{ max-width:520px; width:100%; background:var(--panel); border:1px solid var(--line); border-radius:20px; padding:36px; }
   .setup-card .logo{ margin-bottom:18px; }
