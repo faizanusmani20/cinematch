@@ -3,190 +3,736 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>CineMatch — Find your next favorite film</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
+
 <link rel="stylesheet" href="style.css">
 
-
-
 </head>
+
 <body>
 
 
+
+
 <div class="setup-overlay" id="setupOverlay" style="display:none;">
+
   <div class="setup-card">
-    <div class="logo">Cine<span style="color:var(--accent)">Match</span></div>
+
+    <div class="logo">
+      Cine<span style="color:var(--accent)">Match</span>
+    </div>
+
+    <!-- <a href="cinematch.html" class="logo">
+      Cine<span style="color:var(--accent)">Match</span>
+    </a> -->
+
     <h2>Can't reach the movie database</h2>
-    <p>CineMatch's backend proxy didn't respond. If you're the developer, double check:</p>
+
+    <p>
+      CineMatch's backend proxy didn't respond.
+      If you're the developer, double check:
+    </p>
+
     <ol class="setup-steps">
-      <li>The Cloudflare Worker is deployed (<code>wrangler deploy</code>)</li>
-      <li><code>API_PROXY_BASE</code> at the top of the script matches your worker's URL</li>
-      <li>The <code>TMDB_API_KEY</code> secret is set on the worker</li>
+      <li>
+        The Cloudflare Worker is deployed
+        (<code>wrangler deploy</code>)
+      </li>
+
+      <li>
+        <code>API_PROXY_BASE</code> at the top of the script
+        matches your worker's URL
+      </li>
+
+      <li>
+        The <code>TMDB_API_KEY</code> secret is set on the worker
+      </li>
     </ol>
-    <div class="setup-error show" id="setupError"><i class="fa-solid fa-circle-exclamation"></i> <span id="setupErrorMsg">Connection failed</span></div>
-    <button class="btn btn-primary btn-sm" id="setupRetryBtn" style="margin-top:14px;"><i class="fa-solid fa-rotate"></i> Retry</button>
+
+    <div class="setup-error show" id="setupError">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="setupErrorMsg">Connection failed</span>
+    </div>
+
+    <button
+      class="btn btn-primary btn-sm"
+      id="setupRetryBtn"
+      style="margin-top:14px;"
+    >
+      <i class="fa-solid fa-rotate"></i>
+      Retry
+    </button>
+
   </div>
+
 </div>
 
+
+<!-- ==========================================
+     NAVIGATION
+     ========================================== -->
+
 <header class="nav">
+
   <div class="nav-inner">
-    <div class="logo">Cine<span>Match</span></div>
-    <nav class="nav-links">
-      <a data-scroll="discover">Discover</a>
-      <a data-scroll="browse">Browse</a>
-      <a data-scroll="stats">Your Taste</a>
-    </nav>
-    <div style="display:flex; gap:10px; align-items:center;">
-      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-      <button class="icon-btn" id="watchlistToggle" aria-label="Open watchlist">
-        <i class="fa-solid fa-bookmark"></i>
-        <span class="badge-count" id="watchlistCount">0</span>
-      </button>
+
+    <div class="logo">
+      Cine<span>Match</span>
     </div>
+
+    <nav class="nav-links">
+
+      <a data-scroll="discover">
+        Discover
+      </a>
+
+      <a data-scroll="browse">
+        Browse
+      </a>
+
+      <a data-scroll="stats">
+        Your Taste
+      </a>
+
+    </nav>
+
+    <div style="display:flex; gap:10px; align-items:center;">
+
+      <button
+        class="icon-btn"
+        id="themeToggle"
+        aria-label="Toggle theme"
+      >
+        <i class="fa-solid fa-moon"></i>
+      </button>
+
+
+      <button
+        class="icon-btn"
+        id="watchlistToggle"
+        aria-label="Open watchlist"
+      >
+
+        <i class="fa-solid fa-bookmark"></i>
+
+        <span
+          class="badge-count"
+          id="watchlistCount"
+        >
+          0
+        </span>
+
+      </button>
+
+    </div>
+
   </div>
+
 </header>
+
+
 
 <div class="filmstrip"></div>
 
+
+
 <section class="hero">
+
   <div class="hero-beam"></div>
+
   <div class="container hero-grid">
+
     <div>
-      <div class="eyebrow-pill"><i class="fa-solid fa-clapperboard"></i> Live data from TMDB — thousands of real titles</div>
-      <h1>Stop scrolling.<br><span class="line2">Start watching.</span></h1>
-      <p class="lead">Swipe through real, current films to teach CineMatch your taste, then get a personalized shortlist scored against your genre profile — no account, no algorithm mystery, just math you can see.</p>
+
+      <div class="eyebrow-pill">
+        <i class="fa-solid fa-clapperboard"></i>
+        Live data from TMDB — thousands of real titles
+      </div>
+
+      <h1>
+        Stop scrolling.<br>
+        <span class="line2">Start watching.</span>
+      </h1>
+
+      <p class="lead">
+        Swipe through real, current films to teach CineMatch
+        your taste, then get a personalized shortlist scored
+        against your genre profile — no account, no algorithm
+        mystery, just math you can see.
+      </p>
+
       <div class="hero-ctas">
-        <button class="btn btn-primary" data-scroll="discover"><i class="fa-solid fa-hand-pointer"></i> Build my taste profile</button>
-        <button class="btn btn-ghost" data-scroll="browse"><i class="fa-solid fa-compass"></i> Just browse</button>
+
+        <button
+          class="btn btn-primary"
+          data-scroll="discover"
+        >
+          <i class="fa-solid fa-hand-pointer"></i>
+          Build my taste profile
+        </button>
+
+        <button
+          class="btn btn-ghost"
+          data-scroll="browse"
+        >
+          <i class="fa-solid fa-compass"></i>
+          Just browse
+        </button>
+
       </div>
+
     </div>
-    <div class="hero-stack" id="heroStack">
+
+
+    <div
+      class="hero-stack"
+      id="heroStack"
+    >
+
       <div class="stack-card"></div>
       <div class="stack-card"></div>
       <div class="stack-card"></div>
+
     </div>
+
   </div>
+
 </section>
 
-<div class="ticker-wrap"><div class="ticker" id="ticker"><span>Loading now-playing titles…</span></div></div>
 
-<section id="discover" class="container">
-  <div class="section-head" data-aos="fade-up">
-    <span class="kicker">TASTE PROFILE</span>
-    <h2>Swipe right on your kind of story.</h2>
-    <p>Like or pass on real, popular films pulled live from TMDB. Every swipe nudges CineMatch's content-based scoring model, weighting the genres you keep choosing.</p>
+
+<div class="ticker-wrap">
+
+  <div
+    class="ticker"
+    id="ticker"
+  >
+    <span>
+      Loading now-playing titles…
+    </span>
   </div>
+
+</div>
+
+
+
+<section
+  id="discover"
+  class="container"
+>
+
+  <div
+    class="section-head"
+    data-aos="fade-up"
+  >
+
+    <span class="kicker">
+      TASTE PROFILE
+    </span>
+
+    <h2>
+      Swipe right on your kind of story.
+    </h2>
+
+    <p>
+      Like or pass on real, popular films pulled live from TMDB.
+      Every swipe nudges CineMatch's content-based scoring model,
+      weighting the genres you keep choosing.
+    </p>
+
+  </div>
+
+
   <div class="discover-wrap">
+
     <div>
-      <div class="deck" id="deck"></div>
+
+      <div
+        class="deck"
+        id="deck"
+      ></div>
+
+
       <div class="deck-controls">
-        <button class="round-btn nope" id="btnNope" aria-label="Pass"><i class="fa-solid fa-xmark"></i></button>
-        <button class="round-btn undo" id="btnUndo" aria-label="Undo"><i class="fa-solid fa-rotate-left"></i></button>
-        <button class="round-btn like" id="btnLike" aria-label="Like"><i class="fa-solid fa-heart"></i></button>
+
+        <button
+          class="round-btn nope"
+          id="btnNope"
+          aria-label="Pass"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+
+        <button
+          class="round-btn undo"
+          id="btnUndo"
+          aria-label="Undo"
+        >
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+
+
+        <button
+          class="round-btn like"
+          id="btnLike"
+          aria-label="Like"
+        >
+          <i class="fa-solid fa-heart"></i>
+        </button>
+
       </div>
+
     </div>
-    <div class="taste-panel" data-aos="fade-left">
-      <h3>Your genre profile</h3>
-      <p class="small">Updates live as you swipe. Recommendations below are scored against this.</p>
+
+
+    <div
+      class="taste-panel"
+      data-aos="fade-left"
+    >
+
+      <h3>
+        Your genre profile
+      </h3>
+
+      <p class="small">
+        Updates live as you swipe.
+        Recommendations below are scored against this.
+      </p>
+
       <div id="tasteBars"></div>
-      <button class="btn btn-primary taste-cta" id="scrollToBrowse"><i class="fa-solid fa-wand-magic-sparkles"></i> See my matches</button>
+
+      <button
+        class="btn btn-primary taste-cta"
+        id="scrollToBrowse"
+      >
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        See my matches
+      </button>
+
     </div>
+
   </div>
+
 </section>
 
-<section id="browse" class="container">
-  <div class="section-head" data-aos="fade-up">
-    <span class="kicker">BROWSE</span>
-    <h2>Every title, sorted your way.</h2>
-    <p>Filter by mood or genre, search the full TMDB catalog by title, or hit surprise me when you can't decide. Cards with a green match badge score highly against your taste profile.</p>
+
+<section
+  id="browse"
+  class="container"
+>
+
+  <div
+    class="section-head"
+    data-aos="fade-up"
+  >
+
+    <span class="kicker">
+      BROWSE
+    </span>
+
+    <h2>
+      Every title, sorted your way.
+    </h2>
+
+    <p>
+      Filter by mood or genre, search the full TMDB catalog by title,
+      or hit surprise me when you can't decide. Cards with a green
+      match badge score highly against your taste profile.
+    </p>
+
   </div>
-  <div class="mood-row" id="moodRow"></div>
-  <div class="mood-row" id="genreRow"></div>
+
+
+  <div
+    class="mood-row"
+    id="moodRow"
+  ></div>
+
+
+  <div
+    class="mood-row"
+    id="genreRow"
+  ></div>
+
+
   <div class="toolbar">
+
     <div class="search-box">
+
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="Search any movie title…" />
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search any movie title…"
+      />
+
     </div>
-    <button class="btn btn-ghost surprise-btn" id="surpriseBtn"><i class="fa-solid fa-dice"></i> Surprise me</button>
-    <button class="btn btn-ghost" id="clearFilters"><i class="fa-solid fa-broom"></i> Clear filters</button>
+
+
+    <button
+      class="btn btn-ghost surprise-btn"
+      id="surpriseBtn"
+    >
+      <i class="fa-solid fa-dice"></i>
+      Surprise me
+    </button>
+
+
+    <button
+      class="btn btn-ghost"
+      id="clearFilters"
+    >
+      <i class="fa-solid fa-broom"></i>
+      Clear filters
+    </button>
+
   </div>
-  <div class="grid" id="grid"></div>
-  <div class="empty-state" id="emptyState" style="display:none;"><i class="fa-solid fa-film"></i><p>No films match those filters. Try clearing one.</p></div>
-  <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
-    <button class="btn btn-ghost" id="loadMoreBtn"><i class="fa-solid fa-rotate"></i> Load more</button>
+
+
+  <div
+    class="grid"
+    id="grid"
+  ></div>
+
+
+  <div
+    class="empty-state"
+    id="emptyState"
+    style="display:none;"
+  >
+
+    <i class="fa-solid fa-film"></i>
+
+    <p>
+      No films match those filters.
+      Try clearing one.
+    </p>
+
   </div>
+
+
+  <div
+    class="load-more-wrap"
+    id="loadMoreWrap"
+    style="display:none;"
+  >
+
+    <button
+      class="btn btn-ghost"
+      id="loadMoreBtn"
+    >
+      <i class="fa-solid fa-rotate"></i>
+      Load more
+    </button>
+
+  </div>
+
 </section>
 
-<section id="stats" class="container">
-  <div class="section-head" data-aos="fade-up">
-    <span class="kicker">YOUR TASTE</span>
-    <h2>The data behind your recommendations.</h2>
-    <p>A transparent look at what's actually driving your matches — built from your swipes and watchlist saves.</p>
+
+<section
+  id="stats"
+  class="container"
+>
+
+  <div
+    class="section-head"
+    data-aos="fade-up"
+  >
+
+    <span class="kicker">
+      YOUR TASTE
+    </span>
+
+    <h2>
+      The data behind your recommendations.
+    </h2>
+
+    <p>
+      A transparent look at what's actually driving your matches —
+      built from your swipes and watchlist saves.
+    </p>
+
   </div>
-  <div class="stats-grid" data-aos="fade-up">
-    <div class="stat-card"><canvas id="genreChart"></canvas></div>
-    <div class="stat-grid-mini">
-      <div class="stat-card"><h4 id="statSwipes">0</h4><p>Films swiped</p></div>
-      <div class="stat-card"><h4 id="statLikes">0</h4><p>Films liked</p></div>
-      <div class="stat-card"><h4 id="statWatchlist">0</h4><p>On your watchlist</p></div>
-      <div class="stat-card"><h4 id="statTopGenre">—</h4><p>Top genre</p></div>
+
+
+  <div
+    class="stats-grid"
+    data-aos="fade-up"
+  >
+
+    <div class="stat-card">
+      <canvas id="genreChart"></canvas>
     </div>
+
+
+    <div class="stat-grid-mini">
+
+      <div class="stat-card">
+        <h4 id="statSwipes">0</h4>
+        <p>Films swiped</p>
+      </div>
+
+
+      <div class="stat-card">
+        <h4 id="statLikes">0</h4>
+        <p>Films liked</p>
+      </div>
+
+
+      <div class="stat-card">
+        <h4 id="statWatchlist">0</h4>
+        <p>On your watchlist</p>
+      </div>
+
+
+      <div class="stat-card">
+        <h4 id="statTopGenre">—</h4>
+        <p>Top genre</p>
+      </div>
+
+    </div>
+
   </div>
+
 </section>
+
+
 
 <footer>
+
   <div class="container">
+
     <div class="foot-grid">
+
       <div>
-        <div class="logo" style="margin-bottom:10px;">Cine<span>Match</span></div>
-        <p style="color:var(--muted); font-size:13px; max-width:280px;">A content-based movie recommender built on live TMDB data, demonstrating real front-end + API integration work.</p>
+
+        <div
+          class="logo"
+          style="margin-bottom:10px;"
+        >
+          Cine<span>Match</span>
+        </div>
+
+        <p
+          style="
+            color:var(--muted);
+            font-size:13px;
+            max-width:280px;
+          "
+        >
+          A content-based movie recommender built on live TMDB
+          data, demonstrating real front-end + API integration work.
+        </p>
+
       </div>
+
     </div>
+
+
     <div class="foot-bottom">
-      <span>© 2026 CineMatch </span>
-     
+
+      <span>
+        © 2026 CineMatch
+      </span>
+
     </div>
+
   </div>
+
 </footer>
 
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modalBox">
-    <div class="modal-hero" id="modalHero">
-      <button class="modal-close" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+
+
+<div
+  class="modal-overlay"
+  id="modalOverlay"
+>
+
+  <div
+    class="modal"
+    id="modalBox"
+  >
+
+    <div
+      class="modal-hero"
+      id="modalHero"
+    >
+
+      <button
+        class="modal-close"
+        id="modalClose"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
     </div>
+
+
     <div class="modal-body">
+
       <h2 id="modalTitle"></h2>
-      <div class="meta" id="modalMeta"></div>
-      <div class="tag-row" id="modalTags" style="margin-bottom:16px;"></div>
-      <p class="plot" id="modalPlot"></p>
+
+      <div
+        class="meta"
+        id="modalMeta"
+      ></div>
+
+      <div
+        class="tag-row"
+        id="modalTags"
+        style="margin-bottom:16px;"
+      ></div>
+
+      <p
+        class="plot"
+        id="modalPlot"
+      ></p>
+
+
       <div class="modal-actions">
-        <button class="btn btn-primary" id="modalWatchlistBtn"><i class="fa-solid fa-bookmark"></i> Add to watchlist</button>
-        <button class="btn btn-ghost" id="modalSimilarBtn"><i class="fa-solid fa-shuffle"></i> Show similar</button>
+
+        <button
+          class="btn btn-primary"
+          id="modalWatchlistBtn"
+        >
+          <i class="fa-solid fa-bookmark"></i>
+          Add to watchlist
+        </button>
+
+
+        <button
+          class="btn btn-ghost"
+          id="modalSimilarBtn"
+        >
+          <i class="fa-solid fa-shuffle"></i>
+          Show similar
+        </button>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
 
-<div class="drawer-overlay" id="drawerOverlay"></div>
-<div class="drawer" id="drawer">
-  <div class="drawer-head"><h3>Your Watchlist</h3><button class="icon-btn" id="drawerClose"><i class="fa-solid fa-xmark"></i></button></div>
-  <div class="drawer-list" id="drawerList"></div>
-  <div class="drawer-stats"><h4>Saved genre breakdown</h4><div id="drawerBars"></div></div>
+
+
+
+<div
+  class="drawer-overlay"
+  id="drawerOverlay"
+></div>
+
+
+<div
+  class="drawer"
+  id="drawer"
+>
+
+  <!-- Drawer Header -->
+
+  <div class="drawer-head">
+
+    <h3>
+      Your Watchlist
+    </h3>
+
+    <button
+      class="icon-btn"
+      id="drawerClose"
+      aria-label="Close watchlist"
+    >
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+  </div>
+
+
+  <!-- Watchlist Movies -->
+
+  <div
+    class="drawer-list"
+    id="drawerList"
+  ></div>
+
+
+  <!-- Genre Breakdown -->
+
+  <div class="drawer-stats">
+
+    <h4>
+      Saved genre breakdown
+    </h4>
+
+    <div
+      id="drawerBars"
+    ></div>
+
+  </div>
+
+
+  <!-- Clear Data Button -->
+
+  <div class="drawer-data-actions">
+
+    <button
+      type="button"
+      class="reset-data-btn"
+      id="clearDataBtn"
+      onclick="clearCineMatchData()"
+    >
+
+      <i class="fa-solid fa-trash"></i>
+
+      <span>
+        Clear My Data
+      </span>
+
+    </button>
+
+  </div>
+
 </div>
 
-<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Saved</span></div>
+
+<div
+  class="toast"
+  id="toast"
+>
+
+  <i class="fa-solid fa-circle-check"></i>
+
+  <span id="toastMsg">
+    Saved
+  </span>
+
+</div>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.2/confetti.browser.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 
-<script src = "script.js"></script>
 
-  
+
+<script src="script.js"></script>
+
 
 </body>
 </html>
